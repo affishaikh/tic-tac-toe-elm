@@ -64,7 +64,7 @@ update l g = case l of
 
 cell : Int -> Int -> Symbol -> Html (List Int)
 
-cell r column symbol = div [ style "background-color" "#ffb2a7"
+cell r column symbol = div [ style "background-color" "#706c61"
                       , style "height" "200px"
                       , style "width" "200px"
                       , style "border" "1px solid white"
@@ -96,12 +96,27 @@ won s = div [style "font-size" "40px",
            style "position" "absolute",
            style "top" "0",
            style "left" "0",
-           style "background" "#808080bf",
+           style "background-color" "#808080bf",
            style "color" "#beebe9",
            style "-webkit-animation" "fadein 2s"
           ] [text ((toString s) ++ " Won!")]
 
+board : Array (Array Symbol) -> Html (List Int)
+board b = div []
+               [div [] (Array.toList (Array.indexedMap row b))]
+
+heading = div [style "font-size" "40px"] [text "Tic-Tac-Toe"]
+
+game : Array (Array Symbol) -> Html (List Int)
+game b = div [style "height" "85vh",
+              style "width" "100vw",
+              style "display" "flex",
+              style "flex-direction" "column",
+              style "justify-content" "space-evenly",
+              style "align-items" "center"]
+              [heading, board b]
+
 view : Game -> Html (List Int)
-view game = if (.hasWon game) then won (game.opponent.symbol) else
-            div []
-            (Array.toList (Array.indexedMap row game.board))
+view g = if (.hasWon g)
+                then div [] [game g.board, won (g.opponent.symbol)]
+                else div [] [game g.board]

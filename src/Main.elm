@@ -3,7 +3,7 @@ module Main exposing (..)
 import Html exposing (..)
 import Browser
 import Array exposing (..)
-import Html.Attributes exposing (..)x
+import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 type Symbol =  X | O | Empty
